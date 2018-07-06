@@ -1,4 +1,11 @@
 import React from 'react';
+import { FormFieldset as _FormFieldset, FormField } from 'mineral-ui/Form';
+import TextInput from 'mineral-ui/TextInput';
+import { createThemedComponent } from 'mineral-ui/themes';
+
+const FormFieldset = createThemedComponent(_FormFieldset, ({ theme }) => ({
+  FormFieldsetLegend_fontSize: theme.fontSize_prose
+}));
 
 export default function App() {
   return (
@@ -8,23 +15,19 @@ export default function App() {
         entered to win a prize.
       </h2>
       <form>
-        <fieldset>
-          <legend>Personal Information</legend>
-          <div>
-            <label htmlFor="fullname">Full Name</label>
-          </div>
-          <div>
-            <input type="text" name="fullname" />
-          </div>
-          <div>
+        <FormFieldset legend="Personal Information">
+          <FormField input={TextInput} label="Full Name" />
+          <FormField label="Email">
+            <TextInput type="email" />
+          </FormField>
+          {/* <div>
             <label htmlFor="email">Email</label>
           </div>
           <div>
             <input type="text" name="email" />
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>Vacation Information</legend>
+          </div> */}
+        </FormFieldset>
+        <FormFieldset legend="Vacation Information">
           <div>
             <input
               type="radio"
@@ -53,7 +56,7 @@ export default function App() {
             <label htmlFor="vacation3">Laos</label>
           </div>
           <input type="submit" value="Submit" />
-        </fieldset>
+        </FormFieldset>
       </form>
     </section>
   );
