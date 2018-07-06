@@ -1,158 +1,55 @@
-import React, { Component } from "react";
-import IconCloud from "mineral-ui-icons/IconCloud";
-import { palette } from "mineral-ui-tokens";
-import { createStyledComponent } from "mineral-ui/styles";
-import { createTheme, ThemeProvider } from "mineral-ui/themes";
-import Avatar from "mineral-ui/Avatar";
-import Box from "mineral-ui/Box";
-import Button from "mineral-ui/Button";
-import ButtonGroup from "mineral-ui/ButtonGroup";
-import Card, {
-  CardActions,
-  CardBlock,
-  CardDivider,
-  CardFooter,
-  CardImage,
-  CardStatus,
-  CardTitle,
-  CardTitleMenu
-} from "mineral-ui/Card";
-import Checkbox, { CheckboxGroup } from "mineral-ui/Checkbox";
-import Dropdown from "mineral-ui/Dropdown";
-import Flex, { FlexItem } from "mineral-ui/Flex";
-import { FormField, FormFieldset, FormFieldDivider } from "mineral-ui/Form";
-import Grid, { GridItem } from "mineral-ui/Grid";
-import Link from "mineral-ui/Link";
-import Menu, { MenuDivider, MenuGroup, MenuItem } from "mineral-ui/Menu";
-import Popover from "mineral-ui/Popover";
-import Radio, { RadioGroup } from "mineral-ui/Radio";
-import Select from "mineral-ui/Select";
-import StartEnd from "mineral-ui/StartEnd";
-import Text from "mineral-ui/Text";
-import TextArea from "mineral-ui/TextArea";
-import TextInput from "mineral-ui/TextInput";
-import Tooltip from "mineral-ui/Tooltip";
-import Controls from "./Controls";
-import Section from "./Section";
+import React, { Component } from 'react';
+import { createStyledComponent } from 'mineral-ui/styles';
+import { createThemedComponent } from 'mineral-ui/themes';
+import _Button from 'mineral-ui/Button';
+import Flex, { FlexItem } from 'mineral-ui/Flex';
+import {
+  FormField as _FormField,
+  FormFieldset as _FormFieldSet
+} from 'mineral-ui/Form';
+import { RadioGroup } from 'mineral-ui/Radio';
+import TextInput from 'mineral-ui/TextInput';
+import TextArea from 'mineral-ui/TextArea';
+import Section from './Section';
 
-const menuData = [
-  {
-    text: "Menu item with onClick",
-    onClick: event => {
-      console.log(event);
-    }
-  },
-  {
-    text: "Menu item",
-    secondaryText: "Secondary text"
-  },
-  {
-    text: "Icon at start",
-    iconStart: <IconCloud />
-  },
-  {
-    text: "Icon at end",
-    iconEnd: <IconCloud />
-  },
-  {
-    divider: true
-  },
-  {
-    text: "Danger variant",
-    variant: "danger"
-  },
-  {
-    text: "Disabled menu item",
-    onClick: () => {
-      console.log("onClick is not triggered for disabled MenuItems");
-    },
-    disabled: true
-  }
-];
-const selectData = [
-  {
-    text: "Menu item",
-    secondaryText: "Secondary text",
-    value: "basic"
-  },
-  {
-    text: "Icon at start",
-    iconStart: <IconCloud />,
-    value: "iconStart"
-  },
-  {
-    text: "Icon at end",
-    iconEnd: <IconCloud />,
-    value: "iconEnd"
-  },
-  {
-    divider: true
-  },
-  {
-    text: "Danger variant",
-    variant: "danger",
-    value: "variant"
-  },
-  {
-    text: "Disabled menu item",
-    onClick: () => {
-      console.log("onClick is not triggered for disabled MenuItems");
-    },
-    disabled: true,
-    value: "disabled"
-  }
-];
-const variants = [
-  {
-    text: "None (regular)",
-    value: undefined
-  },
-  {
-    text: "Danger",
-    value: "danger"
-  },
-  {
-    text: "Success",
-    value: "success"
-  },
-  {
-    text: "Warning",
-    value: "warning"
-  }
-];
-
-const Wrap = createStyledComponent("div", ({ theme }) => ({
+const Wrap = createStyledComponent('div', ({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
   backgroundColor: theme.color_gray_10,
-  paddingTop: "5rem" // Height of Controls
+  paddingTop: '3rem',
+  width: '50rem'
 }));
 
-const customRamp = {
-  [10]: "white",
-  [20]: "white",
-  [30]: "#f5f0fa",
-  [40]: "#ead9fa",
-  [50]: "#dabcf7",
-  [60]: "#c79bf2",
-  [70]: "#ae74e8",
-  [80]: "#9656d6",
-  [90]: "#7d3cbd",
-  [100]: "#642b9e",
-  inflection: 80
-};
+const UnstyledButton = createThemedComponent(_Button, ({ theme }) => ({
+  Button_fontWeight: theme.fontWeight_bold,
+  ButtonContent_fontSize: '1.2em'
+}));
 
-const customRamp2 = {
-  [10]: "#dabcf7",
-  [20]: "#c79bf2",
-  [30]: "#ae74e8",
-  [40]: "#9656d6",
-  [50]: "#7d3cbd",
-  [60]: "#642b9e",
-  [70]: "#4b2175",
-  [80]: "#371c52",
-  [90]: "black",
-  [100]: "black",
-  inflection: 40
-};
+const Button = createThemedComponent(UnstyledButton, {
+  textAlign: 'right'
+});
+
+const UnstyledFormField = createThemedComponent(_FormField, ({ theme }) => ({
+  FormFieldLabel_fontSize: theme.h4_fontSize
+}));
+
+const FormField = createStyledComponent(UnstyledFormField, ({ theme }) => ({
+  marginBottom: theme.space_inline_lg
+}));
+
+const UnstyledFormFieldset = createThemedComponent(
+  _FormFieldSet,
+  ({ theme }) => ({
+    FormFieldsetLegend_fontSize: theme.h3_fontSize,
+    FormFieldsetLegend_marginBottom: theme.h3_fontSize
+  })
+);
+
+const FormFieldset = createStyledComponent(UnstyledFormFieldset, {
+  '& legend': {
+    marginBottom: '0.75rem'
+  }
+});
 
 export default class App extends Component {
   constructor(props) {
@@ -164,278 +61,108 @@ export default class App extends Component {
   }
 
   render() {
-    const { isDisabled, variant } = this.state;
-    const statefulProps = {
-      disabled: isDisabled,
-      variant: variants[variant].value
-    };
-    const controlsProps = {
-      handleChange: this.updateStatefulProps,
-      isDisabled,
-      variant,
-      variants
-    };
-
     return (
-      <Wrap>
-        <Controls {...controlsProps} />
-
-        <Section title="Playground">
-          <Flex>
-            <FlexItem>
-              <ThemeProvider
-                theme={createTheme({ colors: { theme: customRamp } })}
-              >
-                <Button primary>Button</Button>
-              </ThemeProvider>
-            </FlexItem>
-            <FlexItem>
-              <ThemeProvider
-                theme={createTheme({ colors: { theme: customRamp2 } })}
-              >
-                <Button primary>Button</Button>
-              </ThemeProvider>
-            </FlexItem>
-          </Flex>
-        </Section>
-
-        <Section title="Avatar">
-          <Avatar
-            background={palette.teal_40}
-            color={palette.black}
-            shape="square"
-            {...statefulProps}
-          >
-            Kyle
-          </Avatar>
-        </Section>
-
-        <Section title="Box">
-          <Box
-            css={{ backgroundColor: palette.magenta_20 }}
-            marginStart="lg"
-            padding="md"
-            width="50%"
-          >
-            Content
-          </Box>
-        </Section>
-
-        <Section title="Button">
-          <Flex alignItems="center">
-            <FlexItem>
-              <Button {...statefulProps}>Button</Button>
-            </FlexItem>
-            <FlexItem>
-              <Button primary {...statefulProps}>
-                Button
-              </Button>
-            </FlexItem>
-            <FlexItem>
-              <Button minimal {...statefulProps} variant="danger">
-                Button
-              </Button>
-            </FlexItem>
-          </Flex>
-        </Section>
-
-        <Section title="ButtonGroup">
-          <ButtonGroup aria-label="buttons" defaultChecked={0} mode="checkbox">
-            <Button>A</Button>
-            <Button>B</Button>
-            <Button variant="danger">C</Button>
-          </ButtonGroup>
-        </Section>
-
-        <Section title="Card">
-          <Card>
-            <CardTitle
-              actions={<CardTitleMenu data={menuData} {...statefulProps} />}
-              {...statefulProps}
-            >
-              Card Title
-            </CardTitle>
-            <CardImage alt="card image" src="http://fillmurray.com/1280/300" />
-            <CardBlock>Card block</CardBlock>
-            <CardDivider />
-            <CardStatus
-              {...statefulProps}
-              variant={variant === 0 ? "warning" : statefulProps.variant}
-            >
-              Card status (defaults to "warning")
-            </CardStatus>
-            <CardActions>
-              <Button {...statefulProps}>Card Action</Button>
-            </CardActions>
-            <CardFooter title="Card Footer" {...statefulProps} />
-          </Card>
-        </Section>
-
-        <Section title="Checkbox">
-          <Grid>
-            <GridItem>
-              <Checkbox
-                name="checkbox-1"
-                label="One"
-                value="one"
-                {...statefulProps}
-              />
-            </GridItem>
-            <GridItem>
-              <CheckboxGroup
-                name="checkbox-group-1"
-                defaultChecked={["one"]}
-                data={[
-                  { label: "One", value: "one", ...statefulProps },
-                  { label: "Two", value: "two", ...statefulProps },
-                  { label: "Three", value: "three", ...statefulProps }
-                ]}
-                {...statefulProps}
-              />
-            </GridItem>
-          </Grid>
-        </Section>
-
-        <Section title="Dropdown">
-          <Dropdown data={menuData}>
-            <Button {...statefulProps}>Dropdown</Button>
-          </Dropdown>
-        </Section>
-
-        <Section title="Flex">
-          <Flex alignItems="end" justifyContent="evenly" height="5rem">
-            <FlexItem>A</FlexItem>
-            <FlexItem alignSelf="start">B</FlexItem>
-            <FlexItem>C</FlexItem>
-          </Flex>
-        </Section>
-
-        <Section title="FormField">
-          <FormFieldset legend="FormFieldset" {...statefulProps}>
-            <FormField
-              input={TextInput}
-              label="One"
-              required
-              {...statefulProps}
-            />
-            <FormFieldDivider />
-            <FormField input={TextInput} label="Two" {...statefulProps} />
-          </FormFieldset>
-        </Section>
-
-        <Section title="Grid">
-          <Grid>
-            <GridItem span={2}>A</GridItem>
-            <GridItem span={4}>B</GridItem>
-            <GridItem span={6}>C</GridItem>
-          </Grid>
-        </Section>
-
-        <Section title="Link">
-          <Link href="https://mineral-ui.com" {...statefulProps}>
-            Mineral UI
-          </Link>
-        </Section>
-
-        <Section title="Menu">
-          <Grid>
-            <GridItem>
-              <Box width="20rem">
-                <Menu data={menuData} itemKey="text" />
-              </Box>
-            </GridItem>
-            <GridItem>
-              <Box width="20rem">
-                <MenuGroup title="Menu Group">
-                  <MenuItem {...statefulProps}>Menu item</MenuItem>
-                  <MenuDivider />
-                </MenuGroup>
-              </Box>
-            </GridItem>
-          </Grid>
-        </Section>
-
-        <Section title="Popover">
-          <Popover content={<p>Popover content</p>} {...statefulProps}>
-            <Button {...statefulProps}>Popover</Button>
-          </Popover>
-        </Section>
-
-        <Section title="Radio">
-          <Grid>
-            <GridItem>
-              <Radio
-                name="radio-1"
-                label="One"
-                value="one"
-                {...statefulProps}
-              />
-            </GridItem>
-            <GridItem>
-              <RadioGroup
-                name="radio-group-1"
-                defaultChecked="one"
-                data={[
-                  { label: "One", value: "one", ...statefulProps },
-                  { label: "Two", value: "two", ...statefulProps },
-                  { label: "Three", value: "three", ...statefulProps }
-                ]}
-                {...statefulProps}
-              />
-            </GridItem>
-          </Grid>
-        </Section>
-
-        <Section title="Select">
-          <Select data={selectData} name="select-1" {...statefulProps} />
-        </Section>
-
-        <Section title="StartEnd">
-          <StartEnd>
-            <Box>Start</Box>
-            <Box>End</Box>
-          </StartEnd>
-        </Section>
-
-        <Section title="Text">
-          <Text element="h3" appearance="h1" noMargins>
-            Heading 3
-          </Text>
-          <Text appearance="mouse">That looks like a Heading 1</Text>
-          <Text appearance="prose">
-            Tingling of the spine Rig Veda two ghostly white figures in
-            coveralls and helmets are soflty dancing, made in the interiors of
-            collapsing stars Vangelis. Emerged into consciousness Orion's sword
-            are creatures of the cosmos? Flatland cosmos, from which we spring
-            bits of moving fluff rich in heavy atoms prime number with pretty
-            stories for which there's little good evidence? Emerged into
-            consciousness a mote of dust suspended in a sunbeam, consciousness?
-            Network of wormholes a billion trillion another world astonishment
-            Hypatia. The sky calls to us hearts of the stars emerged into
-            consciousness a still more glorious dawn awaits. A mote of dust
-            suspended in a sunbeam billions upon billions and billions upon
-            billions upon billions upon billions upon billions upon billions
-            upon billions.
-          </Text>
-        </Section>
-
-        <Section title="TextArea">
-          <TextArea {...statefulProps} />
-        </Section>
-
-        <Section title="Tooltip">
-          <Tooltip content="Tooltip content" {...statefulProps}>
-            <Button {...statefulProps}>Tooltip</Button>
-          </Tooltip>
-        </Section>
-      </Wrap>
+      <div>
+        <section>
+          <h2>
+            Thank you for participating! Please answer the questions below to be
+            entered to win a prize.
+          </h2>
+          <form>
+            <fieldset>
+              <legend>Personal Information</legend>
+              <div>
+                <label htmlFor="fullname">Full Name</label>
+              </div>
+              <div>
+                <input type="text" name="fullname" />
+              </div>
+              <div>
+                <label htmlFor="email">Email</label>
+              </div>
+              <div>
+                <input type="text" name="email" />
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Vacation Information</legend>
+              <div>
+                <input
+                  type="radio"
+                  id="vacation1"
+                  name="Preferred Vacation"
+                  value="iceland"
+                />
+                <label htmlFor="vacation1">Iceland</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  id="vacation2"
+                  name="Preferred Vacation"
+                  value="italy"
+                />
+                <label htmlFor="vacation2">Italy</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  id="vacation3"
+                  name="Preferred Vacation"
+                  value="laos"
+                />
+                <label htmlFor="vacation3">Laos</label>
+              </div>
+              <input type="submit" value="Submit" />
+            </fieldset>
+          </form>
+        </section>
+        <Wrap>
+          <Section title="Thank you for participating! Please answer the questions below to be entered to win a prize.">
+            <form>
+              <FormFieldset legend="Personal Information">
+                <FormField
+                  input={TextInput}
+                  label="Full Name"
+                  placeholder="e.g. John Smith"
+                  required
+                />
+                <FormField
+                  label="Email"
+                  caption="We promise not to spam you."
+                  placeholder="e.g. john_smith@ca.com"
+                  required>
+                  <TextInput type="email" />
+                </FormField>
+                <FormField label="Additional important information">
+                  <TextArea />
+                </FormField>
+              </FormFieldset>
+              <FormFieldset legend="Vacation Information">
+                <FormField
+                  input={RadioGroup}
+                  label="What is your preferred vacation location?"
+                  name="Preferred Vacation"
+                  required
+                  size="jumbo"
+                  data={[
+                    { label: 'Iceland', value: 'iceland' },
+                    { label: 'Italy', value: 'italy' },
+                    { label: 'Laos', value: 'laos' }
+                  ]}
+                />
+              </FormFieldset>
+              <Flex justifyContent="end">
+                <FlexItem>
+                  <Button primary size="jumbo" type="submit">
+                    Submit
+                  </Button>
+                </FlexItem>
+              </Flex>
+            </form>
+          </Section>
+        </Wrap>
+      </div>
     );
   }
-
-  updateStatefulProps = changes => {
-    this.setState({
-      ...this.state,
-      ...changes
-    });
-  };
 }
