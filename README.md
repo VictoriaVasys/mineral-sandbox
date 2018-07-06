@@ -1,9 +1,25 @@
-# Mineral UI Component Builds
-* Challenge: Transform HTML form found in `source/App.js` to Mineral components
+# Skinning an app with Mineral components
+* Challenge: Transform the HTML form into Mineral components
 * One solution (of many possible) can be found on branch `html-and-mineral-form`
 * Other examples of Mineral components & theme/palette creation can be found on branch `mineral-components`
 
-# Create React App Docs:
+# Setup
+* Clone or Fork & Clone this repo
+* Run `npm i`
+* Navigate to `source/App.js` and import & implement Mineral components & functions
+* Run `npm start` to compile your app
+* Navigate to http://localhost:3000 in the browser to view your app
+* Notes: shortcut to dev tools = `cmd-opt-i`; installing React dev tools may be helpful; don't forget about your debuggers `console.log()` and `debugger`
+
+# Useful Resources
+* https://mineral-ui.com
+* https://github.com/mineral-ui/mineral-ui
+* https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript
+* https://devdocs.io/
+* https://reactjs.org/docs/getting-started.html
+* https://github.com/facebook/create-react-app
+
+# Create React App docs
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
